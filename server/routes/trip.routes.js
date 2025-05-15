@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { Trip, Activity, Vote, TripParticipant, User } = require('../models');
-const { generateTripCode } = require('../utils/utils');
-const loggedInMiddleware  = require('../middlewares/auth.middleware');
+const { generateTripCode } = require('../utils/utils.js');
+const loggedInMiddleware  = require('../middlewares/auth.middleware.js');
 const { Op } = require('sequelize');
-const sequelize  = require('../config/database');
+const sequelize  = require('../config/database.js');
 
 // Get all trips for a user
 router.get('/', loggedInMiddleware, async (req, res) => {

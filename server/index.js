@@ -2,9 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
-const sequelize = require('./config/database');
-const routes = require('./routes');
-const loggerMiddleware = require('./middlewares/logger.middleware');
+const sequelize = require('./config/database.js');
+const routes = require('./routes/index.js');
+const loggerMiddleware = require('./middlewares/logger.middleware.js');
 dotenv.config();
 const PORT = process.env.PORT || 5001;
 

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { Vote, Activity, User, TripParticipant, Trip } = require('../models');
-const loggedInMiddleware  = require('../middlewares/auth.middleware');
-const  sequelize  = require('../config/database');
+const loggedInMiddleware  = require('../middlewares/auth.middleware.js');
+const  sequelize  = require('../config/database.js');
 
 // Toggle vote for an activity
 router.post('/activity/:activityId', loggedInMiddleware, async (req, res) => {

@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const authRoutes = require('./auth.routes');
-const userRoutes = require('./user.routes');
-const tripRoutes = require('./trip.routes');
-const activityRoutes = require('./activities.routes');
-const voteRoutes = require('./votes.routes');
+const authRoutes = require('./auth.routes.js');
+const userRoutes = require('./user.routes.js');
+const tripRoutes = require('./trip.routes.js');
+const activityRoutes = require('./activities.routes.js');
+const voteRoutes = require('./votes.routes.js');
 
 router.use('/auth', authRoutes);
 router.use('/user', userRoutes);

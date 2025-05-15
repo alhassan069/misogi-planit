@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
 const router = express.Router();
 const { User, RefreshToken } = require('../models');
-const { hashPassword, matchPassword, hashToken } = require('../utils/utils');
+const { hashPassword, matchPassword, hashToken } = require('../utils/utils.js');
 
 
 const JWT_SECRET = process.env.JWT_SECRET;

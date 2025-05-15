@@ -1,9 +1,9 @@
-const User = require('./User');
-const RefreshToken = require('./RefreshToken');
-const Trip = require('./Trip');
-const Activity = require('./Activity');
-const Vote = require('./Vote');
-const TripParticipant = require('./TripParticipant');
+const User = require('./User.js');
+const RefreshToken = require('./RefreshToken.js');
+const Trip = require('./Trip.js');
+const Activity = require('./Activity.js');
+const Vote = require('./Vote.js');
+const TripParticipant = require('./TripParticipant.js');
 
 // Define associations
 
