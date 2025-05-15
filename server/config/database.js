@@ -9,8 +9,13 @@ const password = process.env.DB_PASS;
 const host = process.env.DB_HOST;
 const dialect = process.env.DB_DIALECT;
 const port = process.env.DB_PORT;
+const db_url = process.env.DB_URL;
 let sequelize;
-if (!!dialect && dialect !== 'sqlite') {
+
+
+if (!!db_url) {
+  sequelize = new Sequelize(db_url);
+} else if (!!dialect && dialect !== 'sqlite') {
   // Database configuration
   sequelize = new Sequelize(database, username, password, {
     host: host,
