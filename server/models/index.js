@@ -1,65 +1,54 @@
-'use strict';
+const User = require('./User');
+const RefreshToken = require('./RefreshToken');
+const Trip = require('./Trip');
+const Activity = require('./Activity');
+const Vote = require('./Vote');
+const TripParticipant = require('./TripParticipant');
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.js')[env];
-const db = {};
+// Define associations
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+User.hasMany(RefreshToken, { foreignKey: 'userId', as: 'refreshTokens' });
+RefreshToken.belongsTo(User, { foreignKey: 'userId',onDelete: 'CASCADE' });
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (
-      file.indexOf('.') !== 0 &&
-      file !== basename &&
-      file.slice(-3) === '.js' &&
-      file.indexOf('.test.js') === -1
-    );
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+User.hasMany(Trip, { foreignKey: 'creatorId', as: 'createdTrips' });
+Trip.belongsTo(User, { foreignKey: 'creatorId', as: 'creator', onDelete: 'CASCADE' });
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+Trip.hasMany(Activity, { foreignKey: 'tripId', as: 'activities' });
+Activity.belongsTo(Trip, { foreignKey: 'tripId', as: 'trip', onDelete: 'CASCADE' });
+
+User.hasMany(Activity, { foreignKey: 'creatorId', as: 'createdActivities' });
+Activity.belongsTo(User, { foreignKey: 'creatorId', as: 'creator', onDelete: 'CASCADE' });
+
+Activity.hasMany(Vote, { foreignKey: 'activityId', as: 'userVotes' });
+Vote.belongsTo(Activity, { foreignKey: 'activityId', as: 'activity', onDelete: 'CASCADE' });
+
+User.hasMany(Vote, { foreignKey: 'userId', as: 'votes' });
+Vote.belongsTo(User, { foreignKey: 'userId', as: 'user', onDelete: 'CASCADE' });
+
+// Many-to-many relationship between trips and users through TripParticipant
+Trip.belongsToMany(User, { 
+  through: TripParticipant, 
+  foreignKey: 'tripId',
+  otherKey: 'userId',
+  as: 'participants'
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+User.belongsToMany(Trip, { 
+  through: TripParticipant, 
+  foreignKey: 'userId',
+  otherKey: 'tripId',
+  as: 'trips'
+});
 
-// Database connection function
-async function connectDatabase() {
-  try {
-    await sequelize.authenticate();
-    console.log('Database connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-    throw error;
-  }
-}
+// Direct associations for TripParticipant
+TripParticipant.belongsTo(Trip, { foreignKey: 'tripId', as: 'trip' });
+TripParticipant.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
-// Database disconnection function
-async function disconnectDatabase() {
-  try {
-    await sequelize.close();
-    console.log('Database connection has been closed successfully.');
-  } catch (error) {
-    console.error('Error closing database connection:', error);
-    throw error;
-  }
-}
-
-module.exports = { db, connectDatabase, disconnectDatabase };
+module.exports = {
+  User,
+  RefreshToken,
+  Trip,
+  Activity,
+  Vote,
+  TripParticipant,
+};

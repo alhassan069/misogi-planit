@@ -1,9 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
-const { User, connectDatabase, disconnectDatabase} = require('./models');
+const sequelize = require('./config/database');
 const routes = require('./routes');
 const loggerMiddleware = require('./middlewares/logger.middleware');
 dotenv.config();
@@ -30,7 +29,13 @@ app.use('/api', routes);
 let server;
 async function startServer() {
   try {
-    await connectDatabase();
+    await sequelize.authenticate();
+    console.log("Database Connected successfully.");
+    
+    // Use force:true only in development to recreate tables
+    await sequelize.sync();
+    console.log("All models were synchronized successfully.");
+    
     server = app.listen(PORT, () => console.log(`Server running on port ${PORT} successfully.`));
   } catch (error) {
     console.error('Failed to start server:', error);
@@ -41,7 +46,8 @@ async function startServer() {
 process.on('SIGINT', async () => {
   console.log(' SIGINT signal received: closing Database connection and HTTP server');
   try {
-    await disconnectDatabase();
+    await sequelize.close();
+    console.log('Database connection closed successfully.');
     server.close(() => {
       console.log('HTTP server closed');
       process.exit(0);

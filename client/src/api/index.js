@@ -24,7 +24,7 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
     console.log(originalRequest.url);
     console.log(originalRequest.url.includes("/auth"));
-    if (error.response.status === 403 && !originalRequest._retry && !originalRequest.url.includes("/auth")) {
+    if (error.response.status === 403 && error.response.data.message === "Invalid or expired token" && !originalRequest._retry && !originalRequest.url.includes("/auth")) {
       originalRequest._retry = true;
       try {
         const res = await axios.post(serverUrl + "/auth/refresh-token", {}, {

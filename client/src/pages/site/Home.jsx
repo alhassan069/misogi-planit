@@ -1,32 +1,36 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowRight, CheckCircle2, Zap, Shield } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowRight, Users, CalendarHeart, DollarSign, Vote, Map } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="flex flex-col items-center text-center space-y-8">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-            Welcome to <span className="text-primary">Your Platform</span>
-          </h1>
-          <p className="max-w-[700px] text-muted-foreground md:text-xl">
-            A modern solution for your needs. Simple, fast, and reliable.
-          </p>
-          <div className="flex gap-4">
-            <Link to="/login">
-              <Button size="lg" variant="outline">
-                Login
-              </Button>
-            </Link>
-            <Link to="/signup">
-              <Button size="lg">
-                Sign Up <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
+      <section className="container mx-auto px-4 py-24 text-center">
+        <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
+          Plan Trips <span className="text-primary">Together</span>
+        </h1>
+        <p className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground md:text-xl">
+          Say goodbye to chaotic group planning. With Planit, you and your friends can co-create itineraries, share budgets, vote on activities, and finalize everything in one place.
+        </p>
+        <div className="mt-8 flex justify-center gap-4">
+          <Link to="/signup">
+            <Button size="lg">
+              Get Started <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+          <Link to="/login">
+            <Button size="lg" variant="outline">
+              Login
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -35,66 +39,80 @@ const Home = () => {
         <div className="grid gap-8 md:grid-cols-3">
           <Card>
             <CardHeader>
-              <Zap className="h-10 w-10 text-primary" />
-              <CardTitle>Lightning Fast</CardTitle>
+              <Users className="h-10 w-10 text-primary" />
+              <CardTitle>Collaborate with Friends</CardTitle>
               <CardDescription>
-                Experience blazing fast performance with our optimized platform.
+                Invite your group and plan in real-time.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2">
-                <li className="flex items-center">
-                  <CheckCircle2 className="mr-2 h-4 w-4 text-primary" />
-                  <span>Optimized Performance</span>
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle2 className="mr-2 h-4 w-4 text-primary" />
-                  <span>Quick Response Time</span>
-                </li>
+              <ul className="space-y-2 text-muted-foreground">
+                <li>Invite collaborators</li>
+                <li>Real-time updates and changes</li>
               </ul>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <Shield className="h-10 w-10 text-primary" />
-              <CardTitle>Secure & Reliable</CardTitle>
+              <Map className="h-10 w-10 text-primary" />
+              <CardTitle>Create Custom Itineraries</CardTitle>
               <CardDescription>
-                Your data is protected with enterprise-grade security.
+                Add destinations, activities, and schedules.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2">
-                <li className="flex items-center">
-                  <CheckCircle2 className="mr-2 h-4 w-4 text-primary" />
-                  <span>End-to-End Encryption</span>
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle2 className="mr-2 h-4 w-4 text-primary" />
-                  <span>Regular Backups</span>
-                </li>
+              <ul className="space-y-2 text-muted-foreground">
+                <li>Organized trip timeline</li>
+                <li>Shared activity lists</li>
               </ul>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <Zap className="h-10 w-10 text-primary" />
-              <CardTitle>Easy to Use</CardTitle>
+              <DollarSign className="h-10 w-10 text-primary" />
+              <CardTitle>Track Budgets Easily</CardTitle>
               <CardDescription>
-                Intuitive interface designed for the best user experience.
+                Assign and view spending in one place.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2">
-                <li className="flex items-center">
-                  <CheckCircle2 className="mr-2 h-4 w-4 text-primary" />
-                  <span>User-Friendly Design</span>
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle2 className="mr-2 h-4 w-4 text-primary" />
-                  <span>24/7 Support</span>
-                </li>
+              <ul className="space-y-2 text-muted-foreground">
+                <li>Budget per activity/person</li>
+                <li>Visual breakdown</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <Vote className="h-10 w-10 text-primary" />
+              <CardTitle>Vote on Activities</CardTitle>
+              <CardDescription>
+                Let the group decide what to do.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2 text-muted-foreground">
+                <li>Simple upvote system</li>
+                <li>Finalize with consensus</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CalendarHeart className="h-10 w-10 text-primary" />
+              <CardTitle>Smart Scheduling</CardTitle>
+              <CardDescription>
+                Sync everyone's availability easily.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2 text-muted-foreground">
+                <li>Conflict-free planning</li>
+                <li>Shared calendar view</li>
               </ul>
             </CardContent>
           </Card>
@@ -102,28 +120,32 @@ const Home = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t fixed bottom-0 w-full">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-center text-sm text-muted-foreground">
-              © 2024 Lovelace Technologies Private Limited. All rights reserved.
-            </p>
-            <div className="flex gap-4">
-              <Link to="/terms">
-                <Button variant="ghost" size="sm">Terms</Button>
-              </Link>
-              <Link to="/privacy">
-                <Button variant="ghost" size="sm">Privacy</Button>
-              </Link>
-              <Link to="/contact">
-                <Button variant="ghost" size="sm">Contact</Button>
-              </Link>
-            </div>
+      <footer className="border-t">
+        <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-muted-foreground text-center md:text-left">
+            © 2024 Planit. All rights reserved.
+          </p>
+          <div className="flex gap-4">
+            <Link to="/terms">
+              <Button variant="ghost" size="sm">
+                Terms
+              </Button>
+            </Link>
+            <Link to="/privacy">
+              <Button variant="ghost" size="sm">
+                Privacy
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button variant="ghost" size="sm">
+                Contact
+              </Button>
+            </Link>
           </div>
         </div>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

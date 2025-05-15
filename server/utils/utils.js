@@ -41,5 +41,8 @@ const hashToken = (token) => {
   return createHash('sha256').update(token).digest('hex');
 }
 
+const generateTripCode = () => {
+  return randomBytes(4).toString('hex').toUpperCase();
+};
 
-module.exports = {hashPassword, matchPassword, hashToken}
+module.exports = {hashPassword, matchPassword, hashToken, generateTripCode}

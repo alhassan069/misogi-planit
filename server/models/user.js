@@ -1,35 +1,66 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-
-  }
-  User.init({
-    name: DataTypes.STRING,
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false,
-      validate: {
-        isEmail: true,
-      },
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
+const User = sequelize.define('User', {
+  id:{
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    unique: true,
+    allowNull: false,
+    validate: {
+      isEmail: true,
     },
-    password: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'User',
-    underscored: true,
-    timestamps: true,
-  });
-  return User;
-};
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  phone: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  bio: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  location: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  avatar: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+}, {
+  underscored: true,
+  timestamps: true,
+  tableName: 'users',
+  defaultScope: {
+    attributes: { exclude: ['password'] }
+  },
+  scopes: {
+    withPassword: {
+      attributes: {}
+    }
+  },
+  indexes: [
+    {
+      unique: true,
+      fields: ['id']
+    },
+    {
+      unique: true,
+      fields: ['email']
+    }
+  ]
+});
+
+
+module.exports = User;

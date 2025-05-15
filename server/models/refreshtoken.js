@@ -1,41 +1,38 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class RefreshToken extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-      RefreshToken.belongsTo(models.User, {
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE',
-      });
-    }
-  }
-  RefreshToken.init({
-    token: {
-      type: DataTypes.STRING,
-      allowNull: false,
+const { DataTypes } = require('sequelize');
+const sequelize  = require('../config/database.js');
+
+const RefreshToken = sequelize.define('RefreshToken', {
+  token: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  expiresAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  revoked: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id',
+    },
+  },
+}, {
+  underscored: true,
+  timestamps: true,
+  tableName: 'refresh_tokens',
+  indexes: [
+    {
       unique: true,
-    },
-    expires_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    revoked: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-  }, {
-    sequelize,
-    modelName: 'RefreshToken',
-    underscored: true,
-    timestamps: true,
-  });
-  return RefreshToken;
-};
+      fields: ['token']
+    }
+  ]
+})
+
+module.exports = RefreshToken;

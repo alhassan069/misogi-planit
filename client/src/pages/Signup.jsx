@@ -1,5 +1,5 @@
 import { useState } from "react"
-import {  Mountain } from "lucide-react"
+import {  Plane } from "lucide-react"
 import { SignupForm } from "@/components/SignupComponent"
 export default function SignupPage() {
 
@@ -8,9 +8,9 @@ export default function SignupPage() {
       <div className="flex w-full max-w-sm flex-col gap-6">
         <a href="#" className="flex items-center gap-2 self-center font-medium">
           <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <Mountain className="size-4" />
+            <Plane className="size-4" />
           </div>
-          Fire
+          Planit
         </a>
         <SignupForm />
       </div>

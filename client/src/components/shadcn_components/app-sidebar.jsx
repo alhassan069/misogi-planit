@@ -9,13 +9,13 @@ import {
   IconFileWord,
   IconFolder,
   IconHelp,
-  IconInnerShadowTop,
   IconListDetails,
   IconReport,
   IconSearch,
   IconSettings,
   IconUsers,
-  IconUser
+  IconUser,
+  IconPlaneDeparture
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/shadcn_components/nav-documents"
@@ -32,6 +32,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { useAuth } from "@/contexts/AuthContext";
+import { Plane } from "lucide-react"
 
 const data = {
   navMain: [
@@ -41,25 +42,20 @@ const data = {
       icon: IconDashboard,
     },
     {
-      title: "Profile",
-      url: "/dashboard/profile",
-      icon: IconUser,
+      title: "Trips",
+      url: "/dashboard/trips",
+      icon: IconPlaneDeparture,
     },
-    {
-      title: "Analytics",
-      url: "#",
-      icon: IconChartBar,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
-    },
+    // {
+    //   title: "Trip Details",
+    //   url: "/dashboard/trips/:id",
+    //   icon: IconFolder,
+    // },
+    // {
+    //   title: "Join Trip",
+    //   url: "/dashboard/join/:tripCode",
+    //   icon: IconUsers,
+    // },
   ],
   navClouds: [
     {
@@ -109,40 +105,8 @@ const data = {
       ],
     },
   ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
-    },
-  ],
+ 
+  
 }
 
 export function AppSidebar({
@@ -156,8 +120,8 @@ export function AppSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
               <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <Plane className="!size-5" />
+                <span className="text-base font-semibold">Planit</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -165,8 +129,6 @@ export function AppSidebar({
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

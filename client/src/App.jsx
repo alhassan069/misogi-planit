@@ -15,6 +15,10 @@ import { useAuth } from "./contexts/AuthContext";
 import { Toaster } from "./components/ui/sonner";
 import { ThemeProvider } from "./components/shadcn_components/theme-provider";
 
+import { TripDashboard } from "./components/trips/TripDashboard";
+import { TripDetail } from "./components/trips/TripDetail";
+import { JoinTripPage } from "./components/trips/JoinTrip";
+
 export default function App() {
   const { user, checkAuth } = useAuth();
   useLayoutEffect(() => {
@@ -29,11 +33,14 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="join/:tripCode" element={<JoinTripPage />} />
         {user && (
           <>
-            <Route path="/dashboard"  element={<Layout />} >
-              <Route index element={<Dashboard />} />
+            <Route path="/dashboard" element={<Layout />} >
+              <Route index element={<TripDashboard />} />
               <Route path="profile" element={<Profile />} />
+              <Route path="trips" element={<TripDashboard />} />
+              <Route path="trips/:id" element={<TripDetail />} />
             </Route>
           </>
         )}

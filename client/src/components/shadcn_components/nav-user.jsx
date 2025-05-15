@@ -29,6 +29,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 
+import { Link } from "react-router-dom"
+
 export function NavUser({
   user
 }) {
@@ -81,16 +83,10 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
+                <Link to="/dashboard/profile">
                 <IconUserCircle />
                 Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconCreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconNotification />
-                Notifications
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

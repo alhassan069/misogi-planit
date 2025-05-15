@@ -2,10 +2,9 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
 const router = express.Router();
-const { db } = require('../models');
+const { User, RefreshToken } = require('../models');
 const { hashPassword, matchPassword, hashToken } = require('../utils/utils');
-const User = db.User;
-const RefreshToken = db.RefreshToken;
+
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET;
@@ -44,14 +43,14 @@ router.post('/login', async (req, res) => {
         if (!email || !password) {
             return res.status(400).json({ message: 'Incomplete details. Please provide correct email and password!' });
         }
-        const user = await User.findOne({ where: { email } });
+        const user = await User.scope('withPassword').findOne({ where: { email } });
         if (!user) return res.status(400).json({ message: 'Invalid credentials' });
         const valid = matchPassword(password, user.password);
         if (!valid) return res.status(400).json({ message: 'Invalid credentials' });
         const accessToken = generateAccessToken({ id: user.id, email: user.email }, JWT_SECRET, '15m');
         const refreshToken = generateRefreshToken({ id: user.id, email: user.email }, JWT_REFRESH_SECRET, '15d');
         const hashedRefreshToken = hashToken(refreshToken);
-        await RefreshToken.create({ token: hashedRefreshToken, expires_at: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), user_id: user.id });
+        await RefreshToken.create({ token: hashedRefreshToken, expiresAt: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), userId: user.id });
         res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', maxAge: 15 * 24 * 60 * 60 * 1000 });
         return res.status(200).json({ accessToken, user: { id: user.id, name: user.name, email: user.email, createdAt: user.createdAt } });
     } catch (err) {
@@ -79,16 +78,16 @@ router.post('/refresh-token', async (req, res) => {
         // Match old hashed token
         const tokenEntry = await RefreshToken.findOne({
             where: {
-                user_id: payload.id,
+                userId: payload.id,
                 token: hashedOld,
                 revoked: false,
-                expires_at: { [Op.gt]: new Date() }
+                expiresAt: { [Op.gt]: new Date() }
             }
         });
 
         if (!tokenEntry) {
             // Reuse or token not found
-            await RefreshToken.destroy({ where: { user_id: payload.id } });
+            await RefreshToken.destroy({ where: { userId: payload.id } });
             return res.status(403).json({ message: 'Possible token reuse detected. All sessions invalidated.' });
         }
 
@@ -96,7 +95,7 @@ router.post('/refresh-token', async (req, res) => {
         const newRefreshToken = generateRefreshToken({ id: payload.id }, JWT_REFRESH_SECRET, '15d');
         const newAccessToken = generateAccessToken({ id: payload.id }, JWT_SECRET, '15m');
         tokenEntry.token = hashToken(newRefreshToken);
-        tokenEntry.expires_at = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000);
+        tokenEntry.expiresAt = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000);
         await tokenEntry.save();
 
 

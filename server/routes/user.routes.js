@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { db } = require('../models/index.js');
+const { User } = require('../models');
 const { Op } = require('sequelize');
 const loggedInMiddleware = require('../middlewares/auth.middleware.js');
-const User = db.User;
-const RefreshToken = db.RefreshToken;
+
 const { hashPassword, matchPassword } = require('../utils/utils.js');
 
 router.get('/profile', loggedInMiddleware, async (req, res) => {
