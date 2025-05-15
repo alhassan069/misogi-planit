@@ -1,12 +1,3 @@
-const path = require('path');
-const fs = require('fs');
-console.log(__dirname); // /opt/render/project/src/server
-console.log(path.join(__dirname, 'models', 'index.js')); // /opt/render/project/src/server/models/index.js
-console.log(path.join(__dirname, 'models', 'User.js')); // /opt/render/project/src/server/models/index.js
-console.log(fs.readFileSync(path.join(__dirname, 'models', 'index.js'), 'utf8'));
-console.log(fs.readFileSync(path.join(__dirname, 'models', 'User.js'), 'utf8'));
-
-
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
