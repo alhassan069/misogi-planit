@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5001;
 
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:5173', 'localhost'],
+  origin: ['https://misogi-planit-1.onrender.com'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
