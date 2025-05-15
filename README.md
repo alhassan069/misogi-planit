@@ -4,7 +4,7 @@ A modern task management and planning application built with React and Express.j
 
 ## Live Demo
 
-Visit the deployed application at: [https://misogi-planit-1.onrender.com/dashboard]
+Visit the deployed application at: [https://misogi-planit-1.onrender.com/dashboard](https://misogi-planit-1.onrender.com/dashboard)
 
 ## Project Overview
 
@@ -28,7 +28,7 @@ Planit is a full-stack web application that helps users manage their tasks and p
 
 1. Clone the repository:
 ```bash
-git clone [https://github.com/alhassan069/misogi-planit.git]
+git clone https://github.com/alhassan069/misogi-planit.git
 cd misogi
 ```
 
