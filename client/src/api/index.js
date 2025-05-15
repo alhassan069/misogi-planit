@@ -1,7 +1,6 @@
 import axios from "axios";
 import { redirect } from "react-router-dom";
-// const serverUrl = "http://localhost:5001/api";
-const serverUrl = "https://misogi-planit.onrender.com/api";
+const serverUrl = import.meta.env.VITE_API_URL;
 const axiosInstance = axios.create({
   baseURL: serverUrl,
   withCredentials: true,

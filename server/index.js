@@ -7,10 +7,11 @@ const routes = require('./routes/index.js');
 const loggerMiddleware = require('./middlewares/logger.middleware.js');
 dotenv.config();
 const PORT = process.env.PORT || 5001;
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN;
 
 const app = express();
 app.use(cors({
-  origin: ['https://misogi-planit-1.onrender.com'],
+  origin: [CLIENT_ORIGIN],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
