@@ -35,9 +35,15 @@ npm install
 2. Set up environment variables:
 Create a `.env` file in the root directory with the following variables:
 ```env
-PORT=5001
+DB_USER=root
+DB_PASS=your_password
+DB_NAME=db_name
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DIALECT=mysql
+JWT_SECRET=your_secret
+JWT_REFRESH_SECRET=your_refresh_secret
 CLIENT_ORIGIN=http://localhost:5173
-JWT_SECRET=your_jwt_secret
 ```
 
 3. Start the development server:
