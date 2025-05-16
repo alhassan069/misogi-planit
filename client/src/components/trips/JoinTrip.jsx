@@ -21,7 +21,7 @@ export function JoinTripPage() {
       setStatus('unauthenticated');
       return;
     }
-
+    console.log('tripCode', tripCode);
     if (tripCode) {
       joinTrip(tripCode);
     }
