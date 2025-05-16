@@ -1,4 +1,4 @@
-const {createHash, randomBytes, scryptSync } =  require('crypto');
+const {createHash, randomBytes, scryptSync, randomUUID } =  require('crypto');
 
 // Pass the password string and get hashed password back
 // ( and store only the hashed string in your database)
@@ -42,7 +42,7 @@ const hashToken = (token) => {
 }
 
 const generateTripCode = () => {
-  return randomBytes(4).toString('hex').toUpperCase();
+  return randomUUID();
 };
 
 module.exports = {hashPassword, matchPassword, hashToken, generateTripCode}
